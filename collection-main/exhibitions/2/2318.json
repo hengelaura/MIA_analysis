@@ -1,0 +1,21 @@
+{
+  "exhibition_id": 2318,
+  "exhibition_department": "Prints and Drawings",
+  "exhibition_title": "Félix Buhot, peintre d'atmosphère",
+  "exhibition_description": null,
+  "begin": 2016,
+  "end": 2016,
+  "display_date": "Friday, June 24, 2016 - Monday, September 26, 2016",
+  "objects": [
+    9249,
+    9256
+  ],
+  "venues": [
+    {
+      "venue": "Musée Thomas Henry",
+      "begin": 2016,
+      "end": 2016,
+      "display_date": "Friday, June 24, 2016 - Monday, September 26, 2016"
+    }
+  ]
+}

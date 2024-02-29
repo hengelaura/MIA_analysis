@@ -1,0 +1,33 @@
+{
+  "exhibition_id": 2786,
+  "exhibition_department": "(not assigned)",
+  "exhibition_title": "Sargent, Whistler, and Venetian Glass: American Artists and the Magic of Murano",
+  "exhibition_description": null,
+  "begin": 2021,
+  "end": 2023,
+  "display_date": "Friday, October 8, 2021 - Monday, February 27, 2023",
+  "public_info": 0,
+  "objects": [
+    2607
+  ],
+  "venues": [
+    {
+      "venue": "Amon Carter Museum of American Art",
+      "begin": 2021,
+      "end": 2023,
+      "display_date": "Friday, October 8, 2021 - Monday, February 27, 2023"
+    },
+    {
+      "venue": "Mystic Seaport Museum",
+      "begin": 2021,
+      "end": 2023,
+      "display_date": "Friday, October 8, 2021 - Monday, February 27, 2023"
+    },
+    {
+      "venue": "Smithsonian American Art Museum",
+      "begin": 2021,
+      "end": 2023,
+      "display_date": "Friday, October 8, 2021 - Monday, February 27, 2023"
+    }
+  ]
+}

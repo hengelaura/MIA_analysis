@@ -1,0 +1,36 @@
+{
+  "exhibition_id": 2529,
+  "exhibition_department": "Historic: Prints and Drawings",
+  "exhibition_title": "Piranesi: Rome in Ruins",
+  "exhibition_description": null,
+  "begin": 2017,
+  "end": 2018,
+  "display_date": "Saturday, May 20, 2017 - Sunday, February 25, 2018",
+  "public_info": 1,
+  "objects": [
+    8853,
+    42137,
+    55193,
+    55204,
+    55209,
+    55212,
+    55248,
+    55259,
+    55260,
+    55263,
+    55264,
+    77275,
+    77279,
+    77280,
+    103173,
+    103176
+  ],
+  "venues": [
+    {
+      "venue": "Minneapolis Institute of Art",
+      "begin": 2017,
+      "end": 2018,
+      "display_date": "Saturday, May 20, 2017 - Sunday, February 25, 2018"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "exhibition_id": 930,
+  "exhibition_department": "Paintings",
+  "exhibition_title": "Painting in Antwerp, c. 1500",
+  "exhibition_description": null,
+  "begin": 1969,
+  "end": 1969,
+  "display_date": "1969",
+  "objects": [
+    50
+  ],
+  "venues": [
+    {
+      "venue": "Ohio State University Art Gallery",
+      "begin": 1969,
+      "end": 1969,
+      "display_date": "1969"
+    },
+    {
+      "venue": "Rochester Memorial Art Gallery",
+      "begin": 1969,
+      "end": 1969,
+      "display_date": "1969"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "exhibition_id": 1306,
+  "exhibition_department": "Paintings",
+  "exhibition_title": "Van Gogh to Kandinsky: Symbolist Landscape 1880-1910",
+  "exhibition_description": null,
+  "begin": 2012,
+  "end": 2013,
+  "display_date": "Friday, February 24, 2012 - Sunday, February 17, 2013",
+  "objects": [
+    10435
+  ],
+  "venues": [
+    {
+      "venue": "Ateneum Art Museum",
+      "begin": 2012,
+      "end": 2013,
+      "display_date": "Friday, February 24, 2012 - Sunday, February 17, 2013"
+    },
+    {
+      "venue": "Scottish National Gallery",
+      "begin": 2012,
+      "end": 2013,
+      "display_date": "Friday, February 24, 2012 - Sunday, February 17, 2013"
+    },
+    {
+      "venue": "Van Gogh Museum",
+      "begin": 2012,
+      "end": 2013,
+      "display_date": "Friday, February 24, 2012 - Sunday, February 17, 2013"
+    }
+  ]
+}

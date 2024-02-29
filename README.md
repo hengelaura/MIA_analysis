@@ -15,7 +15,7 @@ The Minneapolis Institute of Art makes its collections and departments available
 - Microsoft Office
 
 ## Steps
-- [ ] Download data and create github repository
+- [x] Download data and create github repository
 - [ ] Explore data and pose questions
 - [ ] Clean and Tidy data
 - [ ] Create datapipeline to upsert information when MIA database is updated

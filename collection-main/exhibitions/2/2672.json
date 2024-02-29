@@ -1,0 +1,21 @@
+{
+  "exhibition_id": 2672,
+  "exhibition_department": null,
+  "exhibition_title": "Pierre Bonnard: Designed by India Mahdavi",
+  "exhibition_description": null,
+  "begin": 2023,
+  "end": 2023,
+  "display_date": "Friday, June 9, 2023 - Sunday, October 8, 2023",
+  "public_info": null,
+  "objects": [
+    1240
+  ],
+  "venues": [
+    {
+      "venue": "National Gallery of Victoria",
+      "begin": 2023,
+      "end": 2023,
+      "display_date": "Friday, June 9, 2023 - Sunday, October 8, 2023"
+    }
+  ]
+}

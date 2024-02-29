@@ -1,0 +1,20 @@
+{
+  "exhibition_id": 1305,
+  "exhibition_department": null,
+  "exhibition_title": "Marc Chagall Retrospective Nassau",
+  "exhibition_description": null,
+  "begin": 2012,
+  "end": 2012,
+  "display_date": "Saturday, July 21, 2012 - Sunday, November 04, 2012",
+  "objects": [
+    1427
+  ],
+  "venues": [
+    {
+      "venue": "Nassau County Museum of Art",
+      "begin": 2012,
+      "end": 2012,
+      "display_date": "Saturday, July 21, 2012 - Sunday, November 04, 2012"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "exhibition_id": 1542,
+  "exhibition_department": "Paintings",
+  "exhibition_title": "Neo-Impressionism, from light to color",
+  "exhibition_description": null,
+  "begin": 2014,
+  "end": 2015,
+  "display_date": "Friday, October 10, 2014 - Sunday, March 29, 2015",
+  "objects": [
+    1272,
+    1414
+  ],
+  "venues": [
+    {
+      "venue": "Abeno Harukas Art Museum",
+      "begin": 2014,
+      "end": 2015,
+      "display_date": "Friday, October 10, 2014 - Sunday, March 29, 2015"
+    },
+    {
+      "venue": "Tokyo Metropolitan Art Museum",
+      "begin": 2014,
+      "end": 2015,
+      "display_date": "Friday, October 10, 2014 - Sunday, March 29, 2015"
+    }
+  ]
+}

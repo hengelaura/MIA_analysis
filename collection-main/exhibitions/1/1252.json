@@ -1,0 +1,20 @@
+{
+  "exhibition_id": 1252,
+  "exhibition_department": null,
+  "exhibition_title": "Voyage to the Exotic: Homage to Gauguin",
+  "exhibition_description": null,
+  "begin": 2012,
+  "end": 2013,
+  "display_date": "Tuesday, October 09, 2012 - Sunday, January 13, 2013",
+  "objects": [
+    10435
+  ],
+  "venues": [
+    {
+      "venue": "Museo Thyssen-Bornemisza",
+      "begin": 2012,
+      "end": 2013,
+      "display_date": "Tuesday, October 09, 2012 - Sunday, January 13, 2013"
+    }
+  ]
+}

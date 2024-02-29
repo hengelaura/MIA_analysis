@@ -1,0 +1,21 @@
+{
+  "exhibition_id": 1459,
+  "exhibition_department": "Paintings",
+  "exhibition_title": "I giardini di Monet",
+  "exhibition_description": null,
+  "begin": 2013,
+  "end": 2014,
+  "display_date": "Friday, October 04, 2013 - Sunday, February 09, 2014",
+  "objects": [
+    44,
+    1413
+  ],
+  "venues": [
+    {
+      "venue": "Complesso del Vittoriano",
+      "begin": 2013,
+      "end": 2014,
+      "display_date": "Friday, October 04, 2013 - Sunday, February 09, 2014"
+    }
+  ]
+}
