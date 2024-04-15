@@ -9,6 +9,7 @@ import re
 from datetime import date
 import numpy as np
 import logging
+import os
 
 TODAY = date.today()  # this is going to be used to filter out dates that may be in the future
 
@@ -52,11 +53,19 @@ def make_inches_num(in_string):
             if re.search(r'[^0-9/]', part) or part == '':
                 # add message here about measurement being in wrong format (warning)
                 return float('Nan')
-            elif re.search('/', part):
+            elif re.search('[0-9]+/[0-9]+', part):
                 numerator, denominator = part.split('/')
-                addition = float(numerator) / int(denominator)
+                try:
+                    addition = float(numerator) / int(denominator)
+                except:
+                    print(part)
+                    print(decimal)
             else:
-                addition = float(part)
+                try:
+                    addition = float(part)
+                except:
+                    print(part)
+                    print(decimal)
             decimal += addition
     return decimal
 
@@ -113,7 +122,10 @@ def deconstruct_dated(indate):
         # print(type(today.year))
         d_converted = []
         for t, d, s in zip(times, dates, subs):
-            d_clean = int(re.sub(r'[^0-9]*', '', d))
+            try:
+                d_clean = int(re.sub(r'[^0-9]*', '', d))
+            except ValueError:
+                d_clean = 0
             # put a check here for ridiculous numbers
             if (d_clean * t) > today.year:
                 d_clean = int(d_clean / 10000)
@@ -171,12 +183,16 @@ def clean_artworks(path):
     core_artwork['dimension'] = core_artwork.dimension.apply(lambda z: z.replace('×', 'x'))
     expanded_dimensions = core_artwork['dimension'].str.split('x', expand=True)
     expanded_dimensions.rename({0: 'height', 1: 'width', 2: 'depth'}, axis='columns', inplace=True)
+    needed_columns = ['height', 'width', 'depth']
+    for col in needed_columns:
+        if col not in expanded_dimensions.columns:
+            expanded_dimensions[col] = '0'
     expanded_dimensions.replace({None: '0'}, inplace=True)
     expanded_dimensions['height'] = expanded_dimensions.height.apply(make_inches_num)
     expanded_dimensions['width'] = expanded_dimensions.width.apply(make_inches_num)
     expanded_dimensions['depth'] = expanded_dimensions.depth.apply(make_inches_num)
     if len(expanded_dimensions.columns) > 3:
-        expanded_dimensions.drop(labels=3, axis=1, inplace=True)
+        expanded_dimensions = expanded_dimensions[['height', 'width', 'depth']]
     core2_artwork = pd.concat([core_artwork, expanded_dimensions], axis=1)
     # take out any entries that show they have a null dimension (the format was incorrect)
     wrong_dimensions = core2_artwork[core2_artwork[['height', 'width', 'depth']].isna().any(axis=1)]
@@ -218,27 +234,29 @@ def clean_exhibits(path):
     for file in glob.glob(path):
         info = 0
         try:
-            with open(file, 'r') as file:
-                info = json.load(file)
+            with open(file, 'r') as f:
+                info = json.load(f)
         except Exception as error:
-            chg_logger.info('file is empty')
+            chg_logger.info('{} is empty'.format(file))
             continue
 
-        for art in info['objects']:
-            one_line = {'exhibition_id': info['exhibition_id'], 'art_id': art, 'display_date': info['display_date']}
-            exhibit_df.append(one_line)
+        if 'objects' in info:
+            for art in info['objects']:
+                one_line = {'exhibition_id': info['exhibition_id'], 'art_id': art, 'display_date': info['display_date']}
+                exhibit_df.append(one_line)
 
     exhibits = pd.DataFrame(exhibit_df)
     exhibit_art_df = exhibits[['exhibition_id', 'art_id']]
-    exhibit_art_df.drop_duplicates(inplace=True)
+    exhibit_art_unique = exhibit_art_df.drop_duplicates()
 
     current_exhibit_art = pd.read_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibit_art.csv')
-    upload_exhibit_art = exhibit_art_df[~np.isin(exhibit_art_df, current_exhibit_art)]
+    upload_exhibit_art = exhibit_art_unique[~np.isin(exhibit_art_unique, current_exhibit_art)]
 
     exhibits = exhibits.drop_duplicates(subset=['exhibition_id'])
     exhibits.drop('art_id', inplace=True, axis=1)
     expanded_show_dates = pd.DataFrame()
     expanded_show_dates[['start', 'end']] = exhibits['display_date'].str.split(r'-| to', expand=True)
+    expanded_show_dates['start'] = expanded_show_dates['start'].fillna('')
     expanded_show_dates['end'] = expanded_show_dates['end'].fillna('')
     expanded_show_dates['start_datetime'] = expanded_show_dates.start.apply(format_dates)
     expanded_show_dates['end_datetime'] = expanded_show_dates.end.apply(format_dates)
@@ -251,39 +269,56 @@ def clean_exhibits(path):
     incorrect_format_dates = final_exhibits[final_exhibits['days'].isnull()]
     final_exhibits.dropna(subset=['days'], axis=0, how='any', inplace=True)
     final_exhibits['days'] = final_exhibits['days'].dt.days
+    final_exhibits.drop(columns=['display_date', 'start', 'end'], inplace=True)
 
     current_exhibit = pd.read_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibits.csv')
     upload_exhibit = final_exhibits[~np.isin(final_exhibits.exhibition_id.unique(), current_exhibit.exhibition_id.unique())]
     return upload_exhibit_art, upload_exhibit
 
 
-
 def main():
-    new = clean_depts('C:\\Users\\henge\\PycharmProjects\\MIA\\collection-main\\departments\\*.json')
-    if len(new) > 0:
-        print('oh weird')
+    department = clean_depts('C:\\Users\\henge\\PycharmProjects\\MIA\\collection-main\\departments\\*.json')
+    if len(department) > 0:
+        chg_logger.info('{} new entries for the departments table'.format(len(department)))
+        department.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\departments.csv', mode='a', header=False)
     else:
-        print('yeah that is right')
+        chg_logger.info('No new entries for the departments table')
 
-    test2 = clean_artworks('C:\\Users\\henge\\PycharmProjects\\MIA\\collection-main\\objects\\1\\*.json')
-    if len(test2) > 0:
-        print('uh oh')
-        print(len(test2))
+    art_path = 'C:\\Users\\henge\\PycharmProjects\\MIA\\collection-main\\objects'
+    second_pass = 0
+    for subdir, dirs, files in os.walk(art_path):
+        if second_pass == 1:
+            print(dirs)
+            art_folder = subdir + '\\*.json'
+            print(art_folder)
+            chg_logger.info('Processing path: {}'.format(art_folder))
+            arts = clean_artworks(art_folder)
+            if len(arts) > 0:
+                chg_logger.info('{} new entries for the artworks table'.format(len(arts)))
+                arts.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\artworks.csv', index=False, mode='a', header=False)
+            else:
+                chg_logger.info('No new entries for the artworks table')
+        second_pass = 1
+
+    exhibit_path = 'C:\\Users\\henge\\PycharmProjects\\MIA\\collection-main\\exhibitions'
+    second_pass = 0
+    for subdir, dirs, files in os.walk(exhibit_path):
+        if second_pass == 1:
+            exhibit_folder = subdir + '\\*.json'
+            print(exhibit_folder)
+            ex_art, exhibit = clean_exhibits(exhibit_folder)
+            if len(ex_art) > 0:
+                chg_logger.info('{} new entries for the exhibit_art table'.format(len(ex_art)))
+                ex_art.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibit_art.csv', mode='a', header=False)
+            else:
+                chg_logger.info('No new entries for the exhibit_art table')
+        second_pass = 1
+
+    if len(exhibit) > 0:
+        chg_logger.info('{} new entries for exhibits table'.format(len(exhibit)))
+        exhibit.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibits.csv', mode='a', header=False)
     else:
-        print('right again')
-
-    test3, test4 = clean_exhibits('C:\\Users\\henge\\PycharmProjects\\MIA\\collection-main\\exhibitions\\0\\*.json')
-    if len(test3) >0:
-        print('oh darn')
-    else:
-        print('oh yeah')
-
-    if len(test4) > 0:
-        print('no why')
-    else:
-        print('woohoo')
-
-
+        chg_logger.info('No new entries for the exhibits table')
 
 
 main()
