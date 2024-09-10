@@ -312,13 +312,14 @@ def main():
                 ex_art.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibit_art.csv', mode='a', header=False)
             else:
                 chg_logger.info('No new entries for the exhibit_art table')
+            if len(exhibit) > 0:
+                chg_logger.info('{} new entries for exhibits table'.format(len(exhibit)))
+                exhibit.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibits.csv', mode='a', header=False)
+            else:
+                chg_logger.info('No new entries for the exhibits table')
         second_pass = 1
 
-    if len(exhibit) > 0:
-        chg_logger.info('{} new entries for exhibits table'.format(len(exhibit)))
-        exhibit.to_csv('C:\\Users\\henge\\PycharmProjects\\MIA\\final_tables\\exhibits.csv', mode='a', header=False)
-    else:
-        chg_logger.info('No new entries for the exhibits table')
+
 
 
 main()
